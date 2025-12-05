@@ -1,0 +1,117 @@
+body{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  background-color: #f5f7fa;
+}
+
+.navbar-brand strong{
+  letter-spacing:1px
+}
+
+
+.story{
+  padding: 1rem 0rem;
+}
+
+.img-fluid{
+  max-height:350px;
+  width: 100%;
+}
+
+.track-box{
+  padding:1.25rem;
+  border-radius:10px;
+  box-shadow:0 4px 20px rgba(10,20,40,0.04);
+  background-color: #ffffff;
+}
+
+.hero{
+  background-color: #ecf1f7;
+}
+
+.hero img {
+  opacity: 1;
+  transition: opacity 0.8s ease-in-out;
+}
+
+.hero img.fade {
+  opacity: 0;
+}
+
+
+.service-card{
+  border-radius:12px;
+  box-shadow:0 6px 22px rgba(16,24,40,0.06);
+  padding:2rem;
+  transition:transform .25s ease,box-shadow .25s ease;
+}
+
+.service-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 12px 36px rgba(16,24,40,0.12);
+}
+
+ .cta{
+  background-color: #6610f2;
+  color:white;
+  padding:2.5rem;
+  border-radius:12px;
+  text-align:center;
+}
+
+.admin-panel{
+  padding:1.25rem;
+  border-radius:10px;
+  box-shadow:0 6px 24px rgba(9,18,35,0.06)
+}
+
+footer{
+  padding:2rem 1rem;
+  margin-top:3rem;
+  background:transparent
+}
+
+.service-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.service-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* Smooth transition */
+body, nav, .navbar, .container, .service-card, .cta, footer, section {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark-mode{
+background-color:#0b1220;
+  --card:#0f1724;
+  --muted:#9aa6b2;
+  color:#e6eef8
+}
+.dark-mode .btn-outline-light{
+  color:#e6eef8;
+  border-color:rgba(230,238,248,0.12)
+}
+
+/* Home section (hero) dark mode) */
+.dark-mode #home,
+.dark-mode .hero {
+  background-color: #121212 !important;
+  color: #ffffff !important;
+}
+
+/* If your home section has text inside */
+.dark-mode #home h1,
+.dark-mode #home h2,
+.dark-mode #home p,
+.dark-mode #home a {
+  color: #ffffff !important;
+}

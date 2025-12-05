@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IEA Logistics — Modern Redesign Demo</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Chart.js for dashboard demo -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+
+  <style>
+    :root{
+      --bg: #f5f7fa;
+      --card: #ffffff;
+      --muted: #6c757d;
+      --accent: #0d6efd;
+    }
+
+    body{background:var(--bg);font-family: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial;}
+
+    /* NAVBAR */
+    .navbar-brand strong{letter-spacing:1px}
+
+    /* HERO */
+    .hero{
+      min-height:60vh;
+      display:flex;align-items:center;padding:4rem 1rem;
+      background:linear-gradient(90deg, rgba(13,110,253,0.08), rgba(10,25,47,0.02));
+    }
+
+    .service-card{border-radius:12px;background:var(--card);box-shadow:0 6px 22px rgba(16,24,40,0.06);padding:2rem;transition:transform .25s ease,box-shadow .25s ease}
+    .service-card:hover{transform:translateY(-6px);box-shadow:0 12px 36px rgba(16,24,40,0.12)}
+
+    /* TRACKING */
+    .track-box{background:var(--card);padding:1.25rem;border-radius:10px;box-shadow:0 4px 20px rgba(10,20,40,0.04)}
+
+    /* CTA */
+    .cta{background:linear-gradient(90deg,var(--accent),#6610f2);color:white;padding:2.5rem;border-radius:12px;text-align:center}
+
+    /* ADMIN */
+    .admin-panel{background:var(--card);padding:1.25rem;border-radius:10px;box-shadow:0 6px 24px rgba(9,18,35,0.06)}
+
+    /* DARK MODE */
+    .dark-mode{--bg:#0b1220;--card:#0f1724;--muted:#9aa6b2;color:#e6eef8}
+    .dark-mode .btn-outline-light{color:#e6eef8;border-color:rgba(230,238,248,0.12)}
+
+    /* small animations */
+    .fade-up{opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s ease}
+    .fade-up.show{opacity:1;transform:none}
+
+    /* responsive tweaks */
+    footer{padding:2rem 1rem;margin-top:3rem;background:transparent}
+
+    /* Utility for bootstrap-only preview */
+    .bs-only .service-card{box-shadow:none;border-radius:0;padding:1rem}
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand" href="#home"><img src="https://via.placeholder.com/38x38.png?text=IEA" alt="logo" class="me-2 rounded"> <strong>IEA Logistics</strong></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="#track">Track</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item ms-2"><a class="nav-link btn btn-outline-primary px-3" href="#admin">Admin</a></li>
+          <li class="nav-item ms-2">
+            <div class="form-check form-switch mt-1">
+              <input class="form-check-input" type="checkbox" id="darkToggle">
+              <label class="form-check-label small" for="darkToggle">Dark</label>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SIMPLE HASH-ROUTER: Home Section / Multi-page feel -->
+  <main id="app">
+
+    <!-- HERO / HOME -->
+    <section id="home" class="hero">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-7">
+            <h1 class="display-5">Reliable logistics — modern thinking</h1>
+            <p class="lead text-muted">Fast, secure and trackable courier & haulage services. Shipping across the UK and international partners.</p>
+            <div class="d-flex gap-2 mt-3">
+              <a href="#track" class="btn btn-primary btn-lg">Track a shipment</a>
+              <a href="#services" class="btn btn-outline-secondary btn-lg">Our services</a>
+            </div>
+
+            <div class="mt-4 track-box" style="max-width:560px;">
+              <form id="quickTrackForm" class="row g-2 align-items-center">
+                <div class="col-9">
+                  <input id="quickTrackInput" class="form-control" placeholder="Enter tracking number e.g. IEA123456" />
+                </div>
+                <div class="col-3">
+                  <button class="btn btn-primary w-100" type="submit">Track</button>
+                </div>
+                <div class="col-12 small mt-2 text-muted">Use demo codes: <code>IEA123456</code>, <code>IEA999999</code></div>
+              </form>
+            </div>
+
+          </div>
+          <div class="col-lg-5 text-center d-none d-lg-block">
+            <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=700&q=80" alt="logistics" class="img-fluid rounded shadow" style="max-height:360px;">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES PAGE -->
+    <section id="services" class="container py-5">
+      <h2 class="mb-4">Our Core Services</h2>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card fade-up">
+            <h5>Courier Delivery</h5>
+            <p class="text-muted">Same-day and next-day courier services with secure handling and online tracking.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card fade-up">
+            <h5>Haulage & Transport</h5>
+            <p class="text-muted">Fleet management for large and small consignments across major routes.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card fade-up">
+            <h5>Warehouse Solutions</h5>
+            <p class="text-muted">Short- and long-term secure storage with inventory support.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card fade-up">
+            <h5>International Shipping</h5>
+            <p class="text-muted">Partnerships with global carriers for door-to-door shipping.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card fade-up">
+            <h5>Custom Logistics Solutions</h5>
+            <p class="text-muted">Tailored solutions for B2B and e-commerce retailers.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card fade-up">
+            <h5>Returns Management</h5>
+            <p class="text-muted">Streamlined reverse logistics for smoother return experiences.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <div class="cta">
+          <h3 class="mb-2">Let's move your business forward</h3>
+          <p class="mb-3">Request a tailored quote or start a partnership with our logistics experts.</p>
+          <a href="#contact" class="btn btn-light btn-lg">Request a Quote</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRACKING PAGE -->
+    <section id="track" class="container py-5">
+      <h2>Track a shipment</h2>
+      <div class="row g-4 mt-2">
+        <div class="col-lg-6">
+          <div class="track-box">
+            <form id="trackForm">
+              <div class="mb-3">
+                <label class="form-label">Tracking number</label>
+                <input id="trackingNumber" class="form-control" placeholder="IEA123456" required>
+              </div>
+
+              <button class="btn btn-primary" type="submit"><i class="bi bi-search"></i> Track</button>
+            </form>
+
+            <div id="trackResult" class="mt-3"></div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="admin-panel">
+            <h6 class="mb-2">Quick shipment status (demo)</h6>
+            <ul class="list-group list-group-flush small">
+              <li class="list-group-item">IEA123456 — <strong>Delivered</strong> • <span class="text-muted">Apr 18, 2025</span></li>
+              <li class="list-group-item">IEA999999 — <strong>In transit</strong> • <span class="text-muted">Apr 20, 2025</span></li>
+              <li class="list-group-item">IEA000111 — <strong>Awaiting pickup</strong> • <span class="text-muted">Apr 22, 2025</span></li>
+            </ul>
+            <p class="small text-muted mt-2">This tracking demo is static — connect to your backend API to return live statuses.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="container py-5">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h2>About IEA Logistics</h2>
+          <p class="text-muted">A modern, customer-first logistics company focused on reliability, safety and transparency.
+          We combine technology and operational excellence to deliver packages on time.</p>
+          <p class="mb-0"><strong>Vision:</strong> To be the leading logistics partner across our market.</p>
+        </div>
+        <div class="col-lg-6 text-center">
+          <img src="https://images.unsplash.com/photo-1542736667-069246bdbc70?auto=format&fit=crop&w=800&q=80" class="img-fluid rounded shadow" alt="team">
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="container py-5">
+      <h2>Contact us</h2>
+      <div class="row g-4 mt-2">
+        <div class="col-md-6">
+          <form id="contactForm">
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input class="form-control" id="contactName" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" id="contactEmail" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Message</label>
+              <textarea class="form-control" id="contactMessage" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send message</button>
+          </form>
+        </div>
+        <div class="col-md-6">
+          <div class="admin-panel">
+            <h6>Office</h6>
+            <p class="mb-1 small text-muted">England, UK — Phone: +44 1483 853085</p>
+            <p class="small text-muted">Email: info@iealogistics.com</p>
+
+            <hr>
+            <h6 class="mb-2">Subscribe for updates</h6>
+            <form id="subscribeForm" class="d-flex">
+              <input class="form-control me-2" placeholder="your@email.com" required>
+              <button class="btn btn-outline-primary">Subscribe</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADMIN DASHBOARD (demo) -->
+    <section id="admin" class="container py-5">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Admin dashboard (demo)</h2>
+        <button class="btn btn-outline-secondary" id="bsOnlyBtn">Toggle Bootstrap-only view</button>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-8">
+          <div class="admin-panel">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h6 class="mb-0">Today's overview</h6>
+                <small class="text-muted">Shipments, volumes and performance</small>
+              </div>
+              <div>
+                <button class="btn btn-sm btn-primary">Export CSV</button>
+              </div>
+            </div>
+
+            <canvas id="shipmentsChart" style="max-height:260px"></canvas>
+
+            <hr>
+            <h6 class="mb-2">Recent shipments</h6>
+            <div class="table-responsive">
+              <table class="table table-hover table-sm">
+                <thead>
+                  <tr>
+                    <th>Tracking</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                    <th>Updated</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>IEA123456</td>
+                    <td>Acme Ltd</td>
+                    <td><span class="badge bg-success">Delivered</span></td>
+                    <td>2025-04-18</td>
+                  </tr>
+                  <tr>
+                    <td>IEA999999</td>
+                    <td>Global Shop</td>
+                    <td><span class="badge bg-warning text-dark">In transit</span></td>
+                    <td>2025-04-20</td>
+                  </tr>
+                  <tr>
+                    <td>IEA000111</td>
+                    <td>John Doe</td>
+                    <td><span class="badge bg-secondary">Awaiting pickup</span></td>
+                    <td>2025-04-22</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="admin-panel">
+            <h6>Quick actions</h6>
+            <div class="d-grid gap-2 mt-3">
+              <button class="btn btn-outline-primary">Create shipment</button>
+              <button class="btn btn-outline-secondary">Print labels</button>
+              <button class="btn btn-outline-success">Update status</button>
+            </div>
+
+            <hr>
+            <h6 class="mt-3">KPIs</h6>
+            <ul class="list-unstyled small mt-2">
+              <li>Delivered: <strong>92%</strong></li>
+              <li>On-time: <strong>88%</strong></li>
+              <li>Incidents: <strong>1.1%</strong></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="text-center small text-muted">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center flex-wrap">
+        <div>© 2025 IEA Logistics</div>
+        <div>Built with Bootstrap — Demo UI</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BOOTSTRAP JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // small helper: reveal elements with .fade-up when in viewport
+    function revealFadeUps(){document.querySelectorAll('.fade-up').forEach(el=>{const r=el.getBoundingClientRect();if(r.top<window.innerHeight-80){el.classList.add('show')} })}
+    window.addEventListener('scroll',revealFadeUps);window.addEventListener('load',revealFadeUps);
+
+    // dark mode toggle
+    const darkToggle = document.getElementById('darkToggle');
+    darkToggle.addEventListener('change',e=>{document.documentElement.classList.toggle('dark-mode',e.target.checked)})
+
+    // quick track form (demo)
+    document.getElementById('quickTrackForm').addEventListener('submit',e=>{e.preventDefault();const code=document.getElementById('quickTrackInput').value.trim().toUpperCase();showTrackDemo(code)});
+    document.getElementById('trackForm').addEventListener('submit',e=>{e.preventDefault();const code=document.getElementById('trackingNumber').value.trim().toUpperCase();showTrackDemo(code)});
+
+    function showTrackDemo(code){const out=document.getElementById('trackResult');if(!code){out.innerHTML='<div class="alert alert-warning">Enter a tracking number.</div>';return}
+      // demo logic: some fake statuses
+      const db={ 'IEA123456':{status:'Delivered',when:'2025-04-18',notes:'Left at front desk'}, 'IEA999999':{status:'In transit',when:'2025-04-20',notes:'On vehicle'}, 'IEA000111':{status:'Awaiting pickup',when:'2025-04-22',notes:'Ready at hub'}};
+      const res=db[code];if(res){out.innerHTML=`<div class="alert alert-success"><strong>${code}</strong> — ${res.status}<div class="small text-muted">Updated: ${res.when} • ${res.notes}</div></div>`} else {out.innerHTML=`<div class="alert alert-secondary"><strong>${code}</strong> — No records found (demo). Connect your tracking API to show live results.</div>`}
+    }
+
+    // contact / subscribe (demo behaviours)
+    document.getElementById('contactForm').addEventListener('submit',e=>{e.preventDefault();alert('Thanks! This is a demo — integrate with backend to capture submissions.')});
+    document.getElementById('subscribeForm').addEventListener('submit',e=>{e.preventDefault();alert('Subscribed (demo)')});
+
+    // shipments chart (demo data)
+    const ctx=document.getElementById('shipmentsChart');if(ctx){const chart=new Chart(ctx,{type:'line',data:{labels:['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],datasets:[{label:'Shipments',data:[120,150,170,140,190,220,210],tension:0.4,fill:true}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true}}}})}
+
+    // Toggle bootstrap-only view (removes some custom styling)
+    const bsOnlyBtn=document.getElementById('bsOnlyBtn');bsOnlyBtn.addEventListener('click',()=>{document.documentElement.classList.toggle('bs-only');bsOnlyBtn.textContent=document.documentElement.classList.contains('bs-only')? 'Bootstrap-only: ON':'Toggle Bootstrap-only view'})
+
+    // small router: scroll to section on hash change
+    window.addEventListener('hashchange',()=>{const id=location.hash.replace('#','');if(!id)return;const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'})});
+
+  </script>
+</body>
+</html>
