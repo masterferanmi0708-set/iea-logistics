@@ -48,7 +48,7 @@ const Navbar = () => {
           <li className="nav-item"><a className="nav-link" href="#track">Track</a></li>
           <li className="nav-item"><a className="nav-link" href="#about">About</a></li>
           <li className="nav-item"><a className="nav-link" href="#contact">Contact</a></li>
-          <li className="nav-item ms-2"><a className="nav-link btn btn-outline-primary px-3" href="#admin">Admin</a></li>
+          <li className="nav-item ms-2"><a className="nav-link btn btn-outline-primary px-3" href="#home">Admin</a></li>
           <li className="nav-item ms-2">
             <div className="form-check form-switch mt-1">
               <input className="form-check-input" type="checkbox" id="darkToggle"/>
