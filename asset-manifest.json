@@ -1,19 +1,18 @@
 {
   "files": {
     "main.css": "/iea-logistics/static/css/main.4257ff42.css",
-    "main.js": "/iea-logistics/static/js/main.40fb1721.js",
+    "main.js": "/iea-logistics/static/js/main.8620c36c.js",
     "static/js/453.797f2674.chunk.js": "/iea-logistics/static/js/453.797f2674.chunk.js",
-    "static/media/man.jpg": "/iea-logistics/static/media/man.5084f8a9d49d678677fb.jpg",
     "static/media/yeah.avif": "/iea-logistics/static/media/yeah.9f6e8bc39853e7698564.avif",
     "static/media/logo.svg": "/iea-logistics/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "static/media/logos.avif": "/iea-logistics/static/media/logos.94f06f04bfc8fb88588a.avif",
     "index.html": "/iea-logistics/index.html",
     "main.4257ff42.css.map": "/iea-logistics/static/css/main.4257ff42.css.map",
-    "main.40fb1721.js.map": "/iea-logistics/static/js/main.40fb1721.js.map",
+    "main.8620c36c.js.map": "/iea-logistics/static/js/main.8620c36c.js.map",
     "453.797f2674.chunk.js.map": "/iea-logistics/static/js/453.797f2674.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4257ff42.css",
-    "static/js/main.40fb1721.js"
+    "static/js/main.8620c36c.js"
   ]
 }
