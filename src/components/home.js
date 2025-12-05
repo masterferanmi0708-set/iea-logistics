@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 
-import man from '../images/man.jpg'
 
 
 const Home = () => {
@@ -59,7 +58,7 @@ const Home = () => {
             </div>
 
                 <div className="col-12 col-md-6 col-lg-5">
-                    <img src={images[index]} alt="logistics" className={`img-fluid rounded ${fade ? "fade" : ""}`}/>
+                    <img src={images[index]} alt="logistics" className={`img-fluid rounded ${fade ? "fade" : ""}`} />
                 </div>
                 
         </div>

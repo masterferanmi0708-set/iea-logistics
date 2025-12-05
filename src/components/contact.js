@@ -1,55 +1,53 @@
 
 
-import React, { useState } from 'react'; // 1. Import useState hook
+import React, { useState } from 'react'; 
 
 const Contact = () => {
-    // 2. State for the Contact Form fields
+   
     const [contactFormData, setContactFormData] = useState({
         name: '',
         email: '',
         message: ''
     });
 
-    // 3. State for the Subscribe Form field
+    
     const [subscribeEmail, setSubscribeEmail] = useState('');
 
-    // --- HANDLERS ---
+    
 
-    // 4. Universal handler for Contact Form changes
+    
     const handleContactChange = (e) => {
         const { id, value } = e.target;
         setContactFormData(prevData => ({
             ...prevData,
-            // Use the input's ID (or name) to update the corresponding state key
+            
             [id]: value 
         }));
     };
 
-    // 5. Handler for Subscribe Form email change
+   
     const handleSubscribeChange = (e) => {
         setSubscribeEmail(e.target.value);
     };
 
-    // 6. Submission handler for Contact Form
+   
     const handleContactSubmit = (e) => {
-        e.preventDefault(); // Prevent page reload
+        e.preventDefault(); 
         
         console.log('--- Contact Form Submitted ---');
-        console.log(contactFormData); // Data is logged here!
+        console.log(contactFormData); 
 
-        // Optional: Reset form after submission
-        // setContactFormData({ name: '', email: '', message: '' });
+       
     };
 
-    // 7. Submission handler for Subscribe Form
+
     const handleSubscribeSubmit = (e) => {
-        e.preventDefault(); // Prevent page reload
+        e.preventDefault(); 
         
         console.log('--- Subscribe Form Submitted ---');
-        console.log({ email: subscribeEmail }); // Data is logged here!
+        console.log({ email: subscribeEmail }); 
 
-        // Optional: Reset form after submission
-        // setSubscribeEmail('');
+       
     };
 
     return (
@@ -57,16 +55,16 @@ const Contact = () => {
             <h2>Contact us</h2>
             <div className="row g-4 mt-2">
                 <div className="col-md-6">
-                    {/* Attach the onSubmit handler */}
+                    {}
                     <form id="contactForm" onSubmit={handleContactSubmit}> 
                         
                         <div className="mb-3">
                             <label className="form-label">Name</label>
                             <input 
                                 className="form-control" 
-                                id="name" // Changed to 'name' for simplicity in state key
+                                id="name" 
                                 required
-                                // CRITICAL: Link to state
+                               
                                 name="name"
                                 value={contactFormData.name}
                                 onChange={handleContactChange}
@@ -78,9 +76,9 @@ const Contact = () => {
                             <input 
                                 type="email" 
                                 className="form-control" 
-                                id="email" // Changed to 'email' for simplicity
+                                id="email" 
                                 required
-                                // CRITICAL: Link to state
+                               
                                 name="email"
                                 value={contactFormData.email}
                                 onChange={handleContactChange}
@@ -91,10 +89,10 @@ const Contact = () => {
                             <label className="form-label">Message</label>
                             <textarea 
                                 className="form-control" 
-                                id="message" // Changed to 'message' for simplicity
+                                id="message" 
                                 rows="4" 
                                 required
-                                // CRITICAL: Link to state
+                                
                                 name="message"
                                 value={contactFormData.message}
                                 onChange={handleContactChange}
@@ -113,14 +111,14 @@ const Contact = () => {
 
                         <hr/>
                         <h6 className="mb-2">Subscribe for updates</h6>
-                        {/* Attach the onSubmit handler */}
+                        {}
                         <form id="subscribeForm" className="d-flex" onSubmit={handleSubscribeSubmit}>
                             <input 
                                 className="form-control me-2" 
                                 placeholder="your@email.com" 
                                 required
-                                // CRITICAL: Link to state (using only 'email' here)
-                                name="subscribeEmail" // Added name attribute
+                               
+                                name="subscribeEmail" 
                                 value={subscribeEmail}
                                 onChange={handleSubscribeChange}
                             />

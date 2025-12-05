@@ -2,27 +2,26 @@
 
 
 import React, { useState } from 'react'; 
-// Import useState to manage the input field
+
 
 const Track = () => {
-    // 1. State for the Tracking Number input
+    
     const [trackingId, setTrackingId] = useState('');
 
-    // 2. Handler to update state on every keystroke
+    
     const handleTrackingChange = (e) => {
         setTrackingId(e.target.value);
     };
 
-    // 3. Submission handler
+    
     const handleTrackingSubmit = (e) => {
-        e.preventDefault(); // Prevents the page from reloading
+        e.preventDefault(); 
         
-        // CRITICAL STEP: Log the tracking number to the console
+        
         console.log('--- Shipment Tracked ---');
         console.log({ trackingNumber: trackingId }); 
 
-        // Optional: Reset input after logging
-        // setTrackingId('');
+        
     };
     
     return (
@@ -31,7 +30,6 @@ const Track = () => {
             <div className="row g-4 mt-2">
                 <div className="col-lg-6">
                     <div className="track-box">
-                        {/* 4. Attach the onSubmit handler */}
                         <form id="trackForm" onSubmit={handleTrackingSubmit}>
                             <div className="mb-3">
                                 <label className="form-label">Tracking number</label>
@@ -40,7 +38,6 @@ const Track = () => {
                                     className="form-control" 
                                     placeholder="IEA123456" 
                                     required
-                                    // 5. CRITICAL: Bind input to state
                                     name="trackingNumber"
                                     value={trackingId}
                                     onChange={handleTrackingChange}
